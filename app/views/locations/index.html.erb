@@ -3,9 +3,16 @@
   data-controller="mapbox"
   data-mapbox-markers-value="<%=  @markers.to_json %>"
   data-mapbox-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
+  data-mapbox-duration-value="2000"
   ></div>
 
 <ul>
+  <%= link_to 'Change Stations', locations_path(query: 'change') %>
+  <%= link_to 'Cafe & Restaurant', locations_path(query: 'cafe') %>
+  <%= link_to 'Barrier Free Transit', locations_path(query: 'barrier') %>
+  <%= link_to 'Playground', locations_path(query: 'playground') %>
+  <%= link_to 'Shop', locations_path(query: 'shop') %>
+  <%= link_to 'Doctor', locations_path(query: 'doctor') %>
   <% @locations.each do |location| %>
     <h3><%= location.name %></h3>
     <p><%= location.address %></p>

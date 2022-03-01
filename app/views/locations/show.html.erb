@@ -1,1 +1,42 @@
-<h3>@location.name</h3>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-lg-6">
+      <div
+      style="width 100%; height: 300px;"
+      data-controller="mapbox"
+      data-mapbox-markers-value="<%=  @markers.to_json %>"
+      data-mapbox-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
+      data-mapbox-duration-value="0"
+      ></div>
+    </div>
+    <div class="col-12 col-lg-6">
+      <%= link_to 'Back', locations_path %>
+      <%= link_to 'Edit', edit_location_path(@location) %>
+      <h3><%= @location.name %></h3>
+      <p><%= @location.address %></p>
+      <p><%= @location.category %></p>
+      <div>
+        <% if @location.reviews.blank? %>
+          Be the first to leave a review:
+          <%= render "form", location: @location, review: @review %>
+        <% elsif @user_review %>
+          <%= link_to '*' * @user_review.rating, edit_review_path(@user_review) %>
+        <% else %>
+          <%= render "form", location: @location, review: @review %>
+
+        <% end %>
+      </div>
+
+
+
+    </div>
+    <div>
+      <%= pluralize @location.reviews.size, "review" %>
+    </div>
+    <ul class="list-group">
+      <% @location.reviews.each do |review| %>
+        <li class="list-group-item"><%= review.rating %><%= review.content %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
